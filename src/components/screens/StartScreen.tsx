@@ -184,10 +184,8 @@ export const StartScreen: React.FC<StartScreenProps> = ({
           ابدأ التحقيق
         </motion.button>
 
-        {/* Bottom Right: Panel 1 Number Indicator */}
-        <div className="w-10 h-10 rounded-xl bg-slate-900/80 border-2 border-slate-700 text-white font-black flex items-center justify-center text-lg shadow">
-          1
-        </div>
+        {/* Empty placeholder to keep the center button perfectly balanced */}
+        <div className="w-12 h-12 invisible"></div>
       </div>
     </div>
   );
