@@ -30,3 +30,4 @@ export const useAudio = (isMuted: boolean = false) => {
     playFanfare,
   };
 };
+

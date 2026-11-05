@@ -50,6 +50,18 @@ export const App: React.FC = () => {
     }
   };
 
+  // Fullscreen Immersive Start Screen (Matching Panel 1 in Storyboard)
+  if (gameState.currentScreen === 'START') {
+    return (
+      <StartScreen
+        onStart={startInvestigation}
+        onAudioClick={playClick}
+        isSoundMuted={gameState.isSoundMuted}
+        onToggleSound={toggleSound}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#FBF8F1] flex flex-col justify-between selection:bg-amber-200 selection:text-amber-900 font-cairo">
       {/* Top Navigation Header */}
@@ -66,13 +78,6 @@ export const App: React.FC = () => {
 
       {/* Screen Routing */}
       <main className="flex-1 flex flex-col items-center justify-center w-full">
-        {gameState.currentScreen === 'START' && (
-          <StartScreen
-            onStart={startInvestigation}
-            onAudioClick={playClick}
-          />
-        )}
-
         {gameState.currentScreen === 'SELECT_CASE' && (
           <CaseSelectScreen
             unlockedCaseIds={gameState.unlockedCaseIds}

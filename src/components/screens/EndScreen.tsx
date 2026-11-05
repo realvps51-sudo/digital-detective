@@ -174,3 +174,4 @@ export const EndScreen: React.FC<EndScreenProps> = ({
     </div>
   );
 };
+

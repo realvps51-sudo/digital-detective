@@ -178,3 +178,4 @@ const CaseFolderCard: React.FC<CaseFolderCardProps> = ({
     </motion.div>
   );
 };
+

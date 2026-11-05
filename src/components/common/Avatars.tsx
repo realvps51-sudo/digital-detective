@@ -166,3 +166,4 @@ export const AdamAvatar: React.FC<{ className?: string; size?: number; isWaving?
     ) : null}
   </svg>
 );
+

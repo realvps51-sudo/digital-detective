@@ -186,3 +186,4 @@ export async function downloadCertificateAsPNG(data: CertificateData, filename =
   link.click();
   document.body.removeChild(link);
 }
+
