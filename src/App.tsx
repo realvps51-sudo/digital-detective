@@ -62,9 +62,26 @@ export const App: React.FC = () => {
     );
   }
 
+  // Fullscreen Immersive Case Selection Board (Matching Panel 2 in Storyboard)
+  if (gameState.currentScreen === 'SELECT_CASE') {
+    return (
+      <CaseSelectScreen
+        unlockedCaseIds={gameState.unlockedCaseIds}
+        completedCaseIds={gameState.completedCaseIds}
+        score={gameState.score}
+        maxScore={gameState.maxScore}
+        isSoundMuted={gameState.isSoundMuted}
+        onToggleSound={toggleSound}
+        onSelectCase={selectCase}
+        onBack={() => goToScreen('START')}
+        onAudioClick={playClick}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#FBF8F1] flex flex-col justify-between selection:bg-amber-200 selection:text-amber-900 font-cairo">
-      {/* Top Navigation Header */}
+      {/* Top Navigation Header for Case details & End Screen */}
       <Header
         currentScreen={gameState.currentScreen}
         score={gameState.score}
@@ -78,16 +95,6 @@ export const App: React.FC = () => {
 
       {/* Screen Routing */}
       <main className="flex-1 flex flex-col items-center justify-center w-full">
-        {gameState.currentScreen === 'SELECT_CASE' && (
-          <CaseSelectScreen
-            unlockedCaseIds={gameState.unlockedCaseIds}
-            completedCaseIds={gameState.completedCaseIds}
-            onSelectCase={selectCase}
-            onBack={() => goToScreen('START')}
-            onAudioClick={playClick}
-          />
-        )}
-
         {gameState.currentScreen === 'CASE_DETAIL' && (
           <CaseScreen
             currentCase={activeCase}
