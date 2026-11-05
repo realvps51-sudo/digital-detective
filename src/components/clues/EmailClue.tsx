@@ -1,57 +1,48 @@
 import React from 'react';
-import { Mail, AlertTriangle, ExternalLink } from 'lucide-react';
 
 export const EmailClue: React.FC = () => {
   return (
-    <div className="w-full bg-white rounded-2xl shadow-md border-2 border-slate-200 overflow-hidden flex flex-col">
-      {/* Email Client Header Bar */}
-      <div className="bg-slate-100 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between text-xs sm:text-sm text-slate-600">
-        <div className="flex items-center gap-2 font-bold">
-          <Mail className="w-4 h-4 text-amber-500" />
-          <span>صندوق البريد الإلكتروني (Inbox)</span>
+    <div className="w-full max-w-sm sm:max-w-md bg-[#CFE8F7] rounded-3xl border-4 border-[#1E293B] shadow-2xl p-4 sm:p-6 flex flex-col items-center justify-center select-none">
+      {/* Outer Envelope Container (Pixel-perfect match to Storyboard Panel 3) */}
+      <div className="relative w-48 sm:w-60 h-36 sm:h-44 flex items-center justify-center">
+        {/* White Letter Card extending upwards */}
+        <div className="absolute top-0 w-36 sm:w-44 h-24 sm:h-28 bg-white rounded-t-xl border-3 border-[#1E293B] shadow-sm flex flex-col items-center justify-start pt-2 z-10">
+          <span className="text-red-600 font-black text-2xl sm:text-3xl tracking-wide">
+            إعلان
+          </span>
+          <div className="w-20 sm:w-24 h-1.5 bg-slate-200 rounded-full mt-2"></div>
+          <div className="w-14 sm:w-16 h-1.5 bg-slate-200 rounded-full mt-1.5"></div>
         </div>
-        <span className="text-rose-500 font-extrabold flex items-center gap-1">
-          <AlertTriangle className="w-3.5 h-3.5" /> رسالة مشبوهة
-        </span>
-      </div>
 
-      {/* Email Sender & Meta */}
-      <div className="p-3 sm:p-4 bg-slate-50/70 border-b border-slate-200 text-xs sm:text-sm flex flex-col gap-1">
-        <div className="flex items-center justify-between">
-          <span className="font-extrabold text-slate-800">من: <span className="font-mono text-rose-600 dir-ltr inline-block">offers@unknown-prizes-99.xyz</span></span>
-          <span className="text-slate-400 text-xs">منذ 5 دقائق</span>
+        {/* Circular Red Exclamation Warning Badge (Overlapping Top-Right) */}
+        <div className="absolute -top-3 right-1 sm:right-3 z-30 w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-[#E63946] border-3 sm:border-4 border-[#1E293B] flex items-center justify-center shadow-md">
+          <span className="text-white font-black text-2xl sm:text-3xl">!</span>
         </div>
-        <div className="font-bold text-slate-700">
-          الموضوع: <span className="text-amber-700">🎉 مبروك يا آدم! لقد فزت بهاتف مجاني!</span>
-        </div>
-      </div>
 
-      {/* Visual Envelope Mockup (Matching Panel 3 in Storyboard) */}
-      <div className="p-4 sm:p-6 flex flex-col items-center justify-center bg-gradient-to-b from-amber-50/50 to-orange-50/30 min-h-[170px]">
-        <div className="relative w-56 sm:w-64 bg-amber-400 rounded-2xl border-4 border-amber-600 shadow-lg p-3 text-center flex flex-col items-center">
-          {/* Top Envelope flap shape */}
-          <div className="w-full bg-white rounded-xl p-3 border-2 border-amber-500 shadow-inner flex flex-col items-center gap-2">
-            <div className="flex items-center justify-center gap-1.5 text-red-600 font-black text-lg bg-red-50 px-4 py-1 rounded-full border border-red-200">
-              <span className="w-5 h-5 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-black">!</span>
-              <span>إعلان مغرٍ</span>
-            </div>
-            <p className="text-xs text-slate-600 font-bold">
-              اضغط على الرابط بالأسفل لاستلام هديتك فوراً!
-            </p>
+        {/* Yellow Envelope Back Flap */}
+        <div className="absolute bottom-0 w-full h-28 sm:h-34 bg-[#F5A623] rounded-2xl border-4 border-[#1E293B] z-20 overflow-hidden shadow-lg flex flex-col justify-end items-center pb-2">
+          {/* Envelope fold diagonal lines */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 240 140"
+            preserveAspectRatio="none"
+          >
+            {/* Left triangle fold */}
+            <path d="M0 0 L120 70 L0 140 Z" fill="#E09612" stroke="#1E293B" strokeWidth="3" />
+            {/* Right triangle fold */}
+            <path d="M240 0 L120 70 L240 140 Z" fill="#E09612" stroke="#1E293B" strokeWidth="3" />
+            {/* Bottom triangle fold */}
+            <path d="M0 140 L120 65 L240 140 Z" fill="#F5A623" stroke="#1E293B" strokeWidth="4" />
+          </svg>
+
+          {/* Underlined "Link" button (Matching image) */}
+          <div className="relative z-30 bg-white/90 hover:bg-white px-5 py-1 rounded-lg border-2 border-[#1E293B] shadow-xs cursor-pointer active:scale-95 transition-all">
+            <span className="text-[#0E7490] font-black text-lg sm:text-xl underline font-mono tracking-wider">
+              Link
+            </span>
           </div>
-
-          {/* Link button */}
-          <div className="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm py-2 px-4 rounded-xl flex items-center justify-center gap-1.5 shadow border-b-2 border-blue-900 cursor-pointer">
-            <ExternalLink className="w-4 h-4" />
-            <span className="underline tracking-wider font-mono">Link / اضغط هنا</span>
-          </div>
-        </div>
-
-        <div className="mt-3 text-xs text-slate-500 font-semibold flex items-center gap-1">
-          <span>⚠️ انتبه: عنوان المرسل غير معروف ويطلب الضغط على رابط مجهول!</span>
         </div>
       </div>
     </div>
   );
 };
-

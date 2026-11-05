@@ -1,7 +1,6 @@
 import React from 'react';
 import { useGameState } from './hooks/useGameState';
 import { useAudio } from './hooks/useAudio';
-import { Header } from './components/common/Header';
 import { StartScreen } from './components/screens/StartScreen';
 import { CaseSelectScreen } from './components/screens/CaseSelectScreen';
 import { CaseScreen } from './components/screens/CaseScreen';
@@ -50,7 +49,7 @@ export const App: React.FC = () => {
     }
   };
 
-  // Fullscreen Immersive Start Screen (Matching Panel 1 in Storyboard)
+  // Screen 1: Start Screen (Fullscreen)
   if (gameState.currentScreen === 'START') {
     return (
       <StartScreen
@@ -62,7 +61,7 @@ export const App: React.FC = () => {
     );
   }
 
-  // Fullscreen Immersive Case Selection Board (Matching Panel 2 in Storyboard)
+  // Screen 2: Case Selection Corkboard (Fullscreen)
   if (gameState.currentScreen === 'SELECT_CASE') {
     return (
       <CaseSelectScreen
@@ -79,53 +78,43 @@ export const App: React.FC = () => {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-[#FBF8F1] flex flex-col justify-between selection:bg-amber-200 selection:text-amber-900 font-cairo">
-      {/* Top Navigation Header for Case details & End Screen */}
-      <Header
-        currentScreen={gameState.currentScreen}
+  // Screens 3 to 7: All 5 Investigation Cases (Fullscreen)
+  if (gameState.currentScreen === 'CASE_DETAIL') {
+    return (
+      <CaseScreen
+        currentCase={activeCase}
+        isLastCase={activeCase.id === 5}
         score={gameState.score}
-        maxScore={gameState.maxScore}
         isSoundMuted={gameState.isSoundMuted}
         onToggleSound={toggleSound}
-        onGoBack={handleGoBack}
+        onCaseSolved={handleCaseSolved}
+        onNextCase={handleNextCase}
+        onBack={handleGoBack}
+        onAudioClick={playClick}
+        onPlayCorrect={playCorrect}
+        onPlayWrong={playWrong}
+      />
+    );
+  }
+
+  // Screen 8: End Screen & Certificate (Fullscreen)
+  if (gameState.currentScreen === 'END_GAME') {
+    return (
+      <EndScreen
+        score={gameState.score}
+        maxScore={gameState.maxScore}
+        studentName={gameState.studentName}
+        isSoundMuted={gameState.isSoundMuted}
+        onToggleSound={toggleSound}
+        onStudentNameChange={setStudentName}
         onResetGame={resetGame}
         onAudioClick={playClick}
+        onPlayFanfare={playFanfare}
       />
+    );
+  }
 
-      {/* Screen Routing */}
-      <main className="flex-1 flex flex-col items-center justify-center w-full">
-        {gameState.currentScreen === 'CASE_DETAIL' && (
-          <CaseScreen
-            currentCase={activeCase}
-            isLastCase={activeCase.id === 5}
-            onCaseSolved={handleCaseSolved}
-            onNextCase={handleNextCase}
-            onAudioClick={playClick}
-            onPlayCorrect={playCorrect}
-            onPlayWrong={playWrong}
-          />
-        )}
-
-        {gameState.currentScreen === 'END_GAME' && (
-          <EndScreen
-            score={gameState.score}
-            maxScore={gameState.maxScore}
-            studentName={gameState.studentName}
-            onStudentNameChange={setStudentName}
-            onResetGame={resetGame}
-            onAudioClick={playClick}
-            onPlayFanfare={playFanfare}
-          />
-        )}
-      </main>
-
-      {/* Bottom Footer Note */}
-      <footer className="w-full text-center py-2 text-xs font-bold text-slate-400">
-        منصة المحقق الرقمي © 2026 - مشروع الأمان السيبراني والسلامة الرقمية للطلاب
-      </footer>
-    </div>
-  );
+  return null;
 };
 
 export default App;
