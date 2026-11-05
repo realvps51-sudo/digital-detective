@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Download, RotateCcw, Trophy, CheckCircle, Sparkles, UserCheck, Volume2, VolumeX } from 'lucide-react';
-import { DetectiveAvatar, AdamAvatar, RobotAvatar } from '../common/Avatars';
+import { Download, RotateCcw, Volume2, VolumeX, UserCheck } from 'lucide-react';
+import { FullBodyDetective, FullBodyAdamWaving, CertificateMedal } from '../common/Avatars';
 import { downloadCertificateAsPNG } from '../../utils/certificate';
 
 interface EndScreenProps {
@@ -80,29 +80,29 @@ export const EndScreen: React.FC<EndScreenProps> = ({
 
   return (
     <div className="relative w-full min-h-screen h-screen overflow-hidden bg-[#1E293B] select-none flex flex-col justify-between font-cairo">
-      {/* ================= BACKGROUND: CELEBRATION VAULT ================= */}
+      {/* ================= BACKGROUND: CELEBRATION VAULT SCENE ================= */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-[#182332] via-[#202E40] to-[#121A24]"></div>
         <div className="absolute inset-0 opacity-15 bg-[linear-gradient(to_right,#334155_1px,transparent_1px),linear-gradient(to_bottom,#334155_1px,transparent_1px)] bg-[size:4rem_2rem]"></div>
         <div className="absolute bottom-0 w-full h-[12%] bg-gradient-to-t from-[#0F172A] to-[#1E293B] border-t-4 border-[#334155]"></div>
 
-        {/* Circular Vault Outline */}
-        <div className="absolute right-[10%] top-1/2 -translate-y-1/2 w-[380px] sm:w-[500px] h-[380px] sm:h-[500px] opacity-40 rounded-full border-[16px] border-[#29394D] flex items-center justify-center">
-          <div className="w-[75%] h-[75%] rounded-full border-4 border-dashed border-[#475569]"></div>
+        {/* Circular Vault Outline in Center Background (Matching Storyboard Panel 8) */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[580px] h-[420px] sm:h-[580px] opacity-40 rounded-full border-[20px] border-[#29394D] flex items-center justify-center">
+          <div className="w-[78%] h-[78%] rounded-full border-4 border-dashed border-[#475569]"></div>
         </div>
       </div>
 
-      {/* ================= TOP BAR ================= */}
+      {/* ================= TOP HEADER (Matching Panel 8: "شاشة النهاية: كشف الحقيقة!") ================= */}
       <div className="relative z-20 w-full px-4 sm:px-8 py-3 flex items-center justify-between">
-        <div className="bg-white/95 border-3 border-slate-800 text-slate-900 px-4 py-1.5 rounded-2xl shadow-lg font-black text-base sm:text-lg">
-          Score: {score}
-        </div>
+        {/* Placeholder to balance sound button */}
+        <div className="w-10 h-10"></div>
 
-        <div className="flex items-center gap-2 bg-[#0F172A]/80 backdrop-blur-md px-4 py-1.5 rounded-2xl border-2 border-slate-700 text-amber-300 font-black text-sm sm:text-base shadow">
-          <Sparkles className="w-4 h-4 text-amber-400" />
-          <span>شاشة النهاية: كشف الحقيقة والتقييم!</span>
-        </div>
+        {/* Big White Title (Pixel-perfect match to Storyboard Panel 8) */}
+        <h1 className="text-2xl sm:text-4xl font-black text-white text-center tracking-wide drop-shadow-md">
+          شاشة النهاية: كشف الحقيقة!
+        </h1>
 
+        {/* Sound toggle button */}
         <button
           onClick={() => {
             onAudioClick?.();
@@ -119,90 +119,119 @@ export const EndScreen: React.FC<EndScreenProps> = ({
         </button>
       </div>
 
-      {/* ================= CENTER STAGE: CERTIFICATE BOARD + CHARACTERS ================= */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 max-w-4xl mx-auto w-full my-auto">
-        {/* Certificate Golden Plaque (Matching Panel 8 in Storyboard) */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.93, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="w-full max-w-md sm:max-w-xl bg-[#FEF3C7] rounded-3xl border-4 sm:border-6 border-[#3D2411] shadow-2xl p-4 sm:p-6 text-slate-900 flex flex-col items-center text-center gap-2.5"
-        >
-          <div className="w-12 h-12 rounded-full bg-amber-500 text-white flex items-center justify-center shadow-md">
-            <Trophy className="w-7 h-7 text-yellow-200" />
-          </div>
-
-          <h2 className="text-xl sm:text-2xl font-black text-amber-950">
-            شهادة المحقق الرقمي البطل 🛡️
-          </h2>
-
-          <div className="bg-amber-100 px-4 py-1 rounded-xl border-2 border-amber-400 font-black text-base sm:text-lg text-amber-900">
-            مجموع النقاط: {score} / {maxScore}
-          </div>
-
-          <p className="text-xs sm:text-sm font-extrabold text-emerald-800 flex items-center gap-1.5">
-            <CheckCircle className="w-4 h-4 text-emerald-600" />
-            <span>أداء ممتاز! لقد ساعدت آدم على حماية بياناته بنجاح!</span>
-          </p>
-
-          {/* Student Name Input */}
-          <div className="w-full bg-white p-2.5 sm:p-3 rounded-2xl border-2 border-amber-400 shadow-inner flex flex-col gap-1 text-right">
-            <label className="text-xs font-bold text-slate-700 flex items-center gap-1">
-              <UserCheck className="w-3.5 h-3.5 text-amber-600" />
-              <span>اكتب اسمك ليظهر على الشهادة المعتمدة:</span>
-            </label>
-            <input
-              type="text"
-              value={studentName}
-              onChange={(e) => onStudentNameChange(e.target.value)}
-              placeholder="اكتب اسم الطالب/ـة هنا..."
-              className="w-full px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-xl font-bold text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
-            />
-          </div>
-
-          {/* Download Button */}
-          <button
-            onClick={handleDownloadCertificate}
-            disabled={isDownloading}
-            className="w-full py-2.5 sm:py-3 px-6 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-base sm:text-lg rounded-2xl border-3 border-emerald-900 shadow-[0_4px_0_#064E3B] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+      {/* ================= CENTER STAGE: DETECTIVE + CERTIFICATE + ADAM (Matching Panel 8) ================= */}
+      <div className="relative z-10 flex-1 flex items-center justify-center px-2 sm:px-6 max-w-6xl mx-auto w-full my-auto">
+        <div className="w-full flex items-center justify-between sm:justify-center gap-2 sm:gap-6">
+          {/* 1. Left Character: Detective with Magnifying Glass & Cat */}
+          <motion.div
+            initial={{ x: -40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="shrink-0 hidden md:flex flex-col items-center"
           >
-            <Download className="w-5 h-5" />
-            <span>{isDownloading ? 'جارٍ تحضير الشهادة...' : 'تحميل الشهادة (PNG)'}</span>
-          </button>
-        </motion.div>
+            <FullBodyDetective withCat={true} size={190} />
+          </motion.div>
 
-        {/* Celebrating Characters Row Below (Detective, Adam, Robot) */}
-        <div className="flex items-end justify-center gap-4 sm:gap-8 mt-4">
-          <div className="flex flex-col items-center">
-            <DetectiveAvatar size={90} />
-            <span className="text-[11px] font-bold text-amber-300">المحقق</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <AdamAvatar size={90} isWaving={true} />
-            <span className="text-[11px] font-bold text-sky-300">آدم يشكرك!</span>
-          </div>
-          <div className="flex flex-col items-center hidden sm:flex">
-            <RobotAvatar size={80} />
-            <span className="text-[11px] font-bold text-slate-300">الروبوت</span>
-          </div>
+          {/* 2. Center: Ornate Landscape Certificate Plaque (Matching Storyboard Panel 8) */}
+          <motion.div
+            initial={{ scale: 0.85, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.45 }}
+            className="w-full max-w-md sm:max-w-xl bg-[#F6BE3C] rounded-2xl sm:rounded-3xl p-3 sm:p-4 border-4 sm:border-6 border-[#3D2411] shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative flex flex-col items-center"
+          >
+            {/* Inner Parchment with Curved Ornate Border */}
+            <div className="w-full bg-[#FFFDF7] rounded-xl sm:rounded-2xl border-3 border-[#3D2411] p-4 sm:p-6 flex flex-col items-center text-center relative overflow-hidden">
+              {/* Ornate Gold Inner Inset Frame with Curved Corners */}
+              <div className="absolute inset-2 sm:inset-3 border-2 border-[#D97706] rounded-xl pointer-events-none">
+                {/* Curved Corner Flourishes */}
+                <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-[#92400E]"></div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-[#92400E]"></div>
+                <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-[#92400E]"></div>
+                <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-[#92400E]"></div>
+              </div>
+
+              {/* Certificate Main Title (Matching Image) */}
+              <h2 className="text-xl sm:text-3xl font-black text-[#1E293B] tracking-wide mb-1 sm:mb-2 z-10">
+                شهادة المحقق الرقمي البطل
+              </h2>
+
+              {/* Score Line (Matching: "مجموع النقاط: 50/50") */}
+              <div className="text-lg sm:text-2xl font-black text-[#1E293B] mb-1 sm:mb-2 z-10">
+                مجموع النقاط: <span className="font-mono">{score}/{maxScore}</span>
+              </div>
+
+              {/* Praise Sentence (Matching: "أداء ممتاز! لقد حميت آدم!") */}
+              <p className="text-base sm:text-xl font-extrabold text-[#1E293B] mb-2 sm:mb-3 z-10">
+                أداء ممتاز! لقد حميت آدم!
+              </p>
+
+              {/* Student Name Input Field (Integrated seamlessly into the certificate) */}
+              <div className="w-full max-w-xs sm:max-w-sm z-10 mb-2">
+                <div className="flex items-center gap-1.5 bg-amber-50/80 px-3 py-1.5 rounded-xl border border-amber-300">
+                  <UserCheck className="w-4 h-4 text-amber-700 shrink-0" />
+                  <input
+                    type="text"
+                    value={studentName}
+                    onChange={(e) => onStudentNameChange(e.target.value)}
+                    placeholder="اكتب اسم البطل هنا للشهادة..."
+                    className="w-full bg-transparent font-black text-xs sm:text-sm text-slate-800 focus:outline-none placeholder:text-slate-400 text-center"
+                  />
+                </div>
+              </div>
+
+              {/* Golden Medal with Red Ribbons in Bottom Center (Identical to Storyboard) */}
+              <div className="relative z-10 flex items-center justify-center gap-3 sm:gap-6 mt-1 w-full">
+                {/* Decorative left line */}
+                <div className="flex-1 h-0.5 bg-[#D97706]/50 max-w-[80px]"></div>
+
+                {/* Scalloped Gold Medal & Ribbon */}
+                <CertificateMedal size={48} />
+
+                {/* Decorative right line */}
+                <div className="flex-1 h-0.5 bg-[#D97706]/50 max-w-[80px]"></div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 3. Right Character: Full Body Adam Waving Happily */}
+          <motion.div
+            initial={{ x: 40, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="shrink-0 hidden md:flex flex-col items-center"
+          >
+            <FullBodyAdamWaving size={190} />
+          </motion.div>
         </div>
       </div>
 
-      {/* ================= BOTTOM BAR ================= */}
-      <div className="relative z-20 w-full px-6 py-3.5 flex items-center justify-between">
-        {/* Play Again Button on Bottom Left */}
-        <button
+      {/* ================= BOTTOM ACTION BAR: REPLAY & DOWNLOAD BUTTONS ================= */}
+      <div className="relative z-20 w-full px-6 py-4 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
+        {/* Play Again Button "إعادة اللعب" (Matching Storyboard Panel 8 Yellow Button) */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => {
             onAudioClick?.();
             onResetGame();
           }}
-          className="px-6 sm:px-8 py-2 sm:py-2.5 bg-[#FDE68A] hover:bg-[#FCD34D] text-[#3D2411] font-black text-base sm:text-lg rounded-2xl border-3 border-[#3D2411] shadow-[0_3px_0_#3D2411] active:translate-y-1 active:shadow-none transition-all flex items-center gap-1.5 cursor-pointer"
+          className="px-8 sm:px-12 py-3 bg-[#F6BE3C] hover:bg-[#FBBF24] text-[#261306] font-black text-xl sm:text-2xl rounded-2xl sm:rounded-3xl border-4 border-[#261306] shadow-[0_5px_0_#261306] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
-          <RotateCcw className="w-5 h-5 text-[#3D2411]" />
-          <span>إعادة اللعب 🔄</span>
-        </button>
+          <RotateCcw className="w-5 h-5 text-[#261306]" />
+          <span>إعادة اللعب</span>
+        </motion.button>
 
-        <div className="w-12 h-12 invisible"></div>
+        {/* Download Certificate PNG Button */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleDownloadCertificate}
+          disabled={isDownloading}
+          className="px-6 sm:px-10 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-lg sm:text-xl rounded-2xl sm:rounded-3xl border-4 border-emerald-950 shadow-[0_5px_0_#064E3B] active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+        >
+          <Download className="w-5 h-5" />
+          <span>{isDownloading ? 'جارٍ التحضير...' : 'تحميل الشهادة (PNG)'}</span>
+        </motion.button>
       </div>
     </div>
   );
